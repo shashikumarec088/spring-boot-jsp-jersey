@@ -12,6 +12,6 @@ import org.springframework.stereotype.Controller;
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
         register(HealthController.class);
-      //  register(HomeController.class);
+      //  register(HomeController.class); not required
     }
 }
