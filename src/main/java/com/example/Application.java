@@ -16,10 +16,6 @@ import org.springframework.http.HttpStatus;
 
 @SpringBootApplication
 
-/*@EnableAutoConfiguration
-@ComponentScan("com.example")
-@PropertySource({"classpath:application.properties"})
-@EnableWebMvc*/
 public class Application {
 	
 	private static final Logger LOGGER = Logger.getLogger(Application.class); 
@@ -27,6 +23,7 @@ public class Application {
     public static void main(String[] args) {  
         try{
         ApplicationContext ctx = SpringApplication.run(Application.class, args); 
+        System.out.println(ctx);
         LOGGER.info("Spring Boot Beans:");
         LOGGER.info("Spring boot is ready");
         }catch(Exception e){
