@@ -8,14 +8,14 @@ buildscript {
 		maven { url "http://repo.spring.io/snapshot" }
     }
     dependencies {
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE')
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.5.1.RELEASE')
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 
 repositories {
@@ -24,6 +24,7 @@ repositories {
 		maven { url "http://repo.spring.io/release" }
 		maven { url "http://repo.spring.io/milestone" }
 		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
 }
 
 sourceCompatibility = 1.8
@@ -38,9 +39,12 @@ compile("org.springframework.boot:spring-boot-starter")
      compile("mysql:mysql-connector-java")
      compile("javax.inject:javax.inject")
      compile("org.springframework.boot:spring-boot")
-   //  compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     testCompile("org.springframework.boot:spring-boot-starter-test")
-    //compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.0.M15'
-    
+ compile("org.springframework.boot:spring-boot-devtools")
+compile("org.springframework.boot:spring-boot-starter-data-jpa")
+
+
+ 
 }
+
 

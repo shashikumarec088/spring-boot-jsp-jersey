@@ -2,8 +2,12 @@ package com.example;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.sql.DataSource;
+
 import org.apache.catalina.connector.Connector;
 import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -15,6 +19,9 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
+
+import com.dto.Product;
 
 @SpringBootApplication
 
@@ -58,5 +65,21 @@ public class Application extends SpringBootServletInitializer{
         factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
         factory.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500.html"));
         return factory;
+    }
+    
+    @Autowired
+    DataSource dataSource;
+    
+    @Bean
+    public SessionFactory sessionFactory(){
+    	
+    	return new LocalSessionFactoryBuilder(dataSource)
+    				
+    			/*.addAnnotatedClass(BookCategory.class)
+    			.addAnnotatedClass(Book.class)*/
+    			.addAnnotatedClass(Product.class)
+    				.buildSessionFactory();
+    	
+    	
     }
 }
