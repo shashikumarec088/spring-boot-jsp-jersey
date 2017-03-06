@@ -4,4 +4,4 @@ This is an Spring boot 1.4.0 sample working project with jersey and jsp without 
 app is deployed in pivotal cloud can check at : http://shashiapp.cfapps.io
 and Rest service URL : http://shashiapp.cfapps.io/services/health
 
-any suggestions are apreciated.
+any suggestions are apreciated. 
