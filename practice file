@@ -1,1 +1,172 @@
+routing example
 
+
+index.html
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myModule">
+<head>
+<title>Angular Application</title>
+<link rel="stylesheet" href="style.css" />
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="angular-route.min.js"></script>
+<script type="text/javascript" src="myScript.js"></script>
+<script type="text/javascript" src="services.js"></script>
+<base href="/wfm/irms/jsp/angular/"/>
+</head>
+<body>
+	<table>
+		<tr>
+			<td colspan="2" class="header">
+				<h1>WebSite header</h1>
+			</td>
+		</tr>
+		<tr>
+			<td class="leftMenu">
+			<a ng-href="home">Home</a>
+			<a ng-href="courses">Courses</a>
+			<a ng-href="students">Students</a>
+			</td>
+			
+			<td class="mainContent">
+			<ng-view></ng-view>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="footer"><b>Web site Footer</b>
+		</tr>
+	</table>
+
+</body>
+</html>
+
+
+
+home.html
+
+<h1>{{message}}</h1>
+<div>
+Home page header
+</div>
+<ul>
+<li>List item 1</li>
+<li>List item 2</li>
+<li>List item 3</li>
+<li>List item 4</li>
+</ul>
+
+courses.html
+
+
+<h1>{{message}}</h1>
+<div>
+Courses table</div>
+<ul ng-repeat="course in courses">
+<li>{{course}}</li>
+</ul>
+
+
+home.html
+
+
+<h1>{{message}}</h1>
+<div>
+Home page header
+</div>
+<ul>
+<li>List item 1</li>
+<li>List item 2</li>
+<li>List item 3</li>
+<li>List item 4</li>
+</ul>
+
+students.html
+
+
+<h1>{{message}}</h1>
+
+<table>
+<tr>
+<td>Id</td>
+<td>{{student.id}}</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>{{student.name}}</td>
+</tr>
+<tr>
+<td>Gender</td>
+<td>{{student.gender}}</td>
+</tr>
+</table>
+<br/>
+<a href="students">Back to Students</a>
+
+studentDetails.html
+
+<h1>{{studentDtlCtrl.message}}</h1>
+
+<table>
+<tr>
+<td>Id</td>
+<td>{{studentDtlCtrl.student.id}}</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>{{studentDtlCtrl.student.name}}</td>
+</tr>
+<tr>
+<td>Gender</td>
+<td>{{studentDtlCtrl.student.gender}}</td>
+</tr>
+</table>
+<br/>
+<a href="students">Back to Students</a>
+
+script.js
+
+
+var app = angular.module('myModule', [ "ngRoute" ]).config(['$routeProvider', '$locationProvider',
+		function($routeProvider,$locationProvider) {
+			$routeProvider.when("/home", {
+				templateUrl : "templates/home.html",
+				controller : "myController"
+			}).when("/courses", {
+				templateUrl : "templates/courses.html",
+				controller : "coursesController"
+			}).when("/students", {
+				templateUrl : "templates/students.html",
+				controller : "studentsController"
+			}).when("/students/:id", {
+				templateUrl : "templates/studentDetails.html",
+				controller : "studentDetailsController"
+			}).otherwise( {
+				redirectTO : "templates/home.html",
+			})
+			
+			$locationProvider.html5Mode(true);
+
+		}]).controller('myController', function($scope) {
+	$scope.message = "Home Page";
+	console.log($scope.message);
+
+}).controller('coursesController', function($scope) {
+	$scope.message = "Courses";
+	console.log($scope.message);
+
+	$scope.courses = [ "C#", "Java" ];
+}).controller('studentsController', function($scope,service) {
+	$scope.message = "Students";
+	$scope.students =service.processing();
+	console.log($scope.students);
+}).controller('studentDetailsController', function($scope,$routeParams,service) {
+	$scope.message = "Student Details";
+	$scope.student = service.processing().find(function (student){ 
+		return student.id == $routeParams.id;
+		
+		
+	});
+	console.log($scope.student);
+});
