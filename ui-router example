@@ -94,3 +94,41 @@ var app = angular.module('myModule', [ "ui.router" ]).config(['$stateProvider','
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myModule">
+<head>
+<title>Angular Application</title>
+<base href="/wfm/irms/jsp/angular/angular.html"/>
+<link rel="stylesheet" href="style.css" />
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="angular-ui-router.js"></script>
+<script type="text/javascript" src="myScript.js"></script>
+<script type="text/javascript" src="services.js"></script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td colspan="2" class="header">
+				<h1>WebSite header</h1>
+			</td>
+		</tr>
+		<tr>
+			<td class="leftMenu">
+			<a ui-sref="home" ui-sref-active="activeState">Home</a>
+			<a ui-sref="courses" ui-sref-active="activeState">Courses</a>
+			<a ui-sref="students" ui-sref-active="activeState">Students</a>
+			</td>
+			
+			<td class="mainContent">
+			<ui-view></ui-view>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="footer"><b>Web site Footer</b>
+		</tr>
+	</table>
+
+</body>
+</html>
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
