@@ -132,3 +132,60 @@ var app = angular.module('myModule', [ "ui.router" ]).config(['$stateProvider','
 </html>
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<h1>{{message}}</h1>
+
+<table>
+<tr>
+<td>Id</td>
+<td>{{student.id}}</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>{{student.name}}</td>
+</tr>
+<tr>
+<td>Gender</td>
+<td>{{student.gender}}</td>
+</tr>
+</table>
+<br/>
+<a ui-sref="students">Back to Students</a>
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<h1>{{message}}</h1>
+<br/>
+Name : <input type="text" ng-model="name" />
+<button ng-click="searchStudent()">Search</button>
+<br/>
+<div>
+Students table</div>
+<ul ng-repeat="student in students">
+<a ui-sref="studentDetails({id : student.id})">{{student.name}}</a>
+</ul>
+<br/>
+<br/>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+<h1>Student Search</h1>
+
+<table border="1" style="border-collapse:collapse">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <tr ng-repeat="student in students">
+        <td>{{student.id}}</td>
+        <td>{{student.name}}</td>
+        <td>{{student.gender}}</td>
+        <td>{{student.age}}</td>
+    </tr>
+</table>
+<br/>
+<br/>
+<a ui-sref="students">Back to Students</a>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
