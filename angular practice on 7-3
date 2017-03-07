@@ -1,1 +1,40 @@
+Route rsolve promise :
 
+we use resolve property to wait till the ajax call is loaded when navigating to other link.
+
+example 
+
+.when("/students", {
+				templateUrl : "templates/students.html",
+				controller : "studentsController",
+        resolve : {
+        studentsList : function($http){
+          return $http.get("").
+          then(function(responce){
+          return responce.data;
+          });
+        }
+        }
+			})
+      
+      .controller(studentsList,'studentsController', function($scope,service, $location) {
+	var vm = this;
+	$scope.message = "Students";
+	$scope.students =studentsList;
+	
+	$scope.searchStudent = function(){
+		
+		if($scope.name){
+		$location.url("/studentsSearch/"+$scope.name);
+	}else{
+		$location.url("/studentsSearch/");
+		
+	}
+		
+	}
+	
+	
+	
+		
+	console.log($scope.students);
+})
