@@ -1,0 +1,96 @@
+var app = angular.module('myModule', [ "ui.router" ]).config(['$stateProvider','$urlMatcherFactoryProvider','$urlRouterProvider','$locationProvider',
+		function($stateProvider,$urlMmatcherFactoryProvider,$urlRouterProvider,$locationProvider) {
+	$urlMmatcherFactoryProvider.caseInsensitive(true);
+	$locationProvider.html5Mode(true);
+	$urlRouterProvider.otherwise("/home");
+	$stateProvider.state("home", {
+				url :"/home",
+				templateUrl : "templates/home.html",
+				controller : "myController",
+				data : {
+					customData : "Custom data in home Controller"
+				}
+			}).state("courses", {
+				url :"/courses",
+				templateUrl : "templates/courses.html",
+				controller : "coursesController",
+				data : {
+					customData : "Custom data in courses Controller"
+				}
+			}).state("students", {
+				url :"/students",
+				templateUrl : "templates/students.html",
+				controller : "studentsController"
+			}).state("studentDetails", {
+				url :"/students/:id",
+				templateUrl : "templates/studentDetails.html",
+				controller : "studentDetailsController"
+			}).state("studentsSearch", {
+				url :"/studentsSearch/:name",
+				templateUrl : "templates/studentsSearch.html",
+				controller : "studentsSearchController"
+			})/*.otherwise( {
+				redirectTO : "templates/home.html",
+			})
+			
+			
+*/
+		}]).controller('myController', function($scope,$state) {
+	$scope.message = "Home Page";
+	console.log($scope.message);
+	$scope.homeCustomData = $state.current.data.customData;
+	$scope.coursesCustomData = $state.get("courses").data.customData;
+
+}).controller('coursesController', function($scope) {
+	$scope.message = "Courses";
+	console.log($scope.message);
+
+	$scope.courses = [ "C#", "Java" ];
+}).controller('studentsController', function($scope,service, $state) {
+	var vm = this;
+	$scope.message = "Students";
+	$scope.students =service.processing();
+	
+	$scope.searchStudent = function(){
+		
+		/*if($scope.name){
+		$location.url("/studentsSearch/"+$scope.name);
+	}else{
+		$location.url("/studentsSearch/");
+		
+	}*/
+		$state.go("studentsSearch",{name : $scope.name});
+		
+	}
+	
+	
+	
+		
+	console.log($scope.students);
+})
+
+.controller('studentDetailsController', function($scope,$stateParams,service) {
+	$scope.message = "Student Details";
+	$scope.student = service.processing().find(function (student){ 
+		return student.id == $stateParams.id;
+		
+		
+	});
+	console.log($scope.student);
+}).controller('studentsSearchController', function($scope,$stateParams,service) {
+	$scope.message = "Student Details";
+	if($stateParams.name){
+	$scope.students = service.processing().filter(function (student){ 
+		return student.name.startsWith($stateParams.name);
+		
+		
+	});
+	name
+	
+	}else{
+		$scope.students = service.processing();
+	}
+})
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
