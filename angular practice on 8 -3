@@ -125,3 +125,66 @@ var app = angular.module('myModule', [ "ui.router" ]).config(['$stateProvider','
 		$scope.students = service.processing();
 	}
 })
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+angular.html
+
+
+<td class="leftMenu">
+			<a ui-sref="home" ui-sref-active="activeState">Home</a>
+			<a ui-sref="courses" ui-sref-active="activeState">Courses</a>
+			<a ui-sref="studentParent.students" ui-sref-active="activeState">Students</a>
+			</td>
+			
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+student parent.html
+
+<h3>Total Male Students : {{males}}</h3>
+<h3>Total Female Students : {{females}}</h3>
+<!-- <h3>Grand Total : {{total}}</h3> -->
+<div ui-view="totalData"></div>
+<div ui-view="studentData"></div>
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+changes in student.html
+
+<a ui-sref="studentParent.students">Back to Students</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+studentTotal.html
+
+
+<h3>Grand Total : {{total}}</h3>
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
