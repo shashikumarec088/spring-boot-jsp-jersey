@@ -112,3 +112,42 @@ app.config(['$httpProvider', function($httpProvider) {
 <option value="">--select--</option>
 <option ng-repeat="x in data | unique:'11'" ng-if="x.ISSUE_TYPE===first && x.11===second" value="{{x.11}}">{{x.11}}</option>
 </select>{{third}}
+----------------------------
+.ui-widget-shadow {
+	margin: -8px 0 0 -8px;
+	padding: 8px;
+	background: #333333 url(images/ui-bg_flat_0_333333_40x100.png) 50% 50% repeat-x;
+	opacity: .1;
+	filter: Alpha(Opacity=10);
+	border-radius: 8px;
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/* #modal-one,.modal-dialog-container{
+	position:absolute;
+	top:10%;
+	width:100%;
+} */
+/* .modal-dialog .iconLoading{
+	background: transparent url("images/loader_red_32X32.gif") no-repeat scroll 10% 8px;
+    height: 41px;
+    padding: 10px;
+    width: 39px;
+    top:10%;
+	width:100%;
+}
+ */
+#modal-one {
+    background: transparent url("images/loader_red_32X32.gif") no-repeat scroll 10% 8px;
+    height: 40px;
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    width: 40px;
+    z-index: 1000;
+}
