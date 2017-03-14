@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+<p>Select a car:</p>
+
+<select ng-model="first">
+<option value="">--select--</option>
+<option ng-repeat="x in cars | unique:'color'" value="{{x.color}}">{{x.color}}</option>
+</select>
+
+<br/>
+
+<select ng-model="second">
+<option value="">--select--</option>
+<option ng-repeat="x in cars" ng-if="x.color===first" value="{{x.model}}">{{x.model}}</option>
+</select>{{x.model}}
+
+<h1>You selected color: {{first}}</h1>
+<h1>You selected model: {{second}}</h1>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.cars = [
+        {model : "Ford Mustang", color : "red"},
+        {model : "Ford Mustang1", color : "red"},
+        {model : "Ford Mustang2", color : "red"},
+        {model : "Fiat 500", color : "white"},
+        {model : "Volvo XC90", color : "black"}
+    ];
+});
+app.filter('unique', function() {
+    return function (arr, key) {
+      return  arr.map(function(element){
+             return element[key];
+        }).filter(function(el,pos,array){
+        		
+        		return array.indexOf(el) == pos;
+        });
+    };
+});
+</script>
+
+<p>When you use the ng-repeat directive to create dropdown lists, the selected value must be a string.</p>
+<p>In this example you will have to choose between the color or the model to be your selected value.</p>
+
+</body>
+</html>
