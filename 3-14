@@ -63,3 +63,52 @@ app.factory('service', function() {
 app.config(['$httpProvider', function($httpProvider) {  
         $httpProvider.interceptors.push('timestampMarker');
     }]);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+.controller('dropdownsController', function($scope,$http) {
+	$http({
+		  method: 'GET',
+		  url: '/url'
+		}).then(function successCallback(response) {
+			 var time = response.config.responseTimestamp - response.config.requestTimestamp;
+			    console.log('The request took ' + (time / 1000) + ' seconds.');
+			$scope.data = response.data.result;
+			console.log($scope.data);
+			
+		  }, function errorCallback(response) {
+			  $scope.data = [];
+		  })
+	$scope.message = "Courses";
+	console.log($scope.first);
+	console.log($scope.second);
+
+	$scope.courses = [ "C#", "Java" ];
+})
+
+
+=-----------------------------------------------
+
+<select ng-model="third">
+<option value="">--select--</option>
+<option ng-repeat="x in data | unique:'11'" ng-if="x.ISSUE_TYPE===first && x.11===second" value="{{x.11}}">{{x.11}}</option>
+</select>{{third}}
