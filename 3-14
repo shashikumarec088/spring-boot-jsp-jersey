@@ -1,0 +1,65 @@
+app.factory('service', function() {
+	var students =  [{ name:"shashi", age:23, gender:"male",id:2  },
+	                   { name:"ajay", age:24, gender:"female",id:3  }
+    ];
+	return {
+		processing : function() {
+			/*if (!input) {
+				return input;
+			}
+			var out = "";
+
+			for (var i = 0; i < input.length; i++) {
+				if (i > 0 && input[i] === input[i].toUpperCase()) {
+					out += " ";
+				}
+				out += input[i];
+
+			}
+			return out;*/
+			return students;
+		},
+		
+		getStudents : function(){
+			return students;
+		}
+
+	}
+}).factory('timestampMarker', function($q,$rootScope) {
+	  return {
+		    'request': function(config) {
+		    	$rootScope.loading = true;
+                config.requestTimestamp = new Date().getTime();
+		      return config;
+		    },
+
+		   'requestError': function(rejection) {
+			   alert("requestError");
+			   $rootScope.loading = false;
+			   rejection.config.responseTimestamp = new Date().getTime();
+		      return $q.reject(rejection);
+		    },
+
+
+
+		    // optional method
+		    'response': function(response) {
+		    	$rootScope.loading = false;
+                response.config.responseTimestamp = new Date().getTime();
+                return response;
+		    },
+
+		    // optional method
+		   'responseError': function(rejection) {
+		      // do something on error
+			   alert("responce error");
+			   $rootScope.loading = false;
+			   rejection.config.responseTimestamp = new Date().getTime();
+		      return $q.reject(rejection);
+		    }
+	  }
+		  });
+
+app.config(['$httpProvider', function($httpProvider) {  
+        $httpProvider.interceptors.push('timestampMarker');
+    }]);
