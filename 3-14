@@ -151,3 +151,41 @@ app.config(['$httpProvider', function($httpProvider) {
     width: 40px;
     z-index: 1000;
 }
+---------------------------
+.factory('timestampMarker', function($q,$rootScope) {
+	  return {
+		    'request': function(config) {
+		    	$rootScope.loading = true;
+                config.requestTimestamp = new Date().getTime();
+		      return config;
+		    },
+
+		   'requestError': function(rejection) {
+			   alert("requestError");
+			   $rootScope.loading = false;
+			   rejection.config.responseTimestamp = new Date().getTime();
+		      return $q.reject(rejection);
+		    },
+
+
+
+		    // optional method
+		    'response': function(response) {
+		    	$rootScope.loading = false;
+                response.config.responseTimestamp = new Date().getTime();
+                return response;
+		    },
+
+		    // optional method
+		   'responseError': function(rejection) {
+		      // do something on error
+			   $rootScope.loading = false;
+			   rejection.config.responseTimestamp = new Date().getTime();
+		      return $q.reject(rejection);
+		    }
+	  }
+		  });
+
+app.config(['$httpProvider', function($httpProvider) {  
+        $httpProvider.interceptors.push('timestampMarker');
+    }]);
