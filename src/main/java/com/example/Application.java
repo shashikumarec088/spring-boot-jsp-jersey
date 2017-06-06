@@ -21,10 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 
-import com.dto.Product;
-
 @SpringBootApplication
-
 public class Application extends SpringBootServletInitializer{
 	
 	 @Override
@@ -61,7 +58,7 @@ public class Application extends SpringBootServletInitializer{
         });
         // Set timeout for tomcat and custom error pages.
         factory.setSessionTimeout(10, TimeUnit.MINUTES);
-        factory.setContextPath("/spring-boot");
+       // factory.setContextPath("/spring-boot");
         factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
         factory.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500.html"));
         return factory;
@@ -77,8 +74,21 @@ public class Application extends SpringBootServletInitializer{
     				
     			/*.addAnnotatedClass(BookCategory.class)
     			.addAnnotatedClass(Book.class)*/
-    			.addAnnotatedClass(Product.class)
+    			//.addAnnotatedClass(Product.class)
+    			.scanPackages("com.dto")
     				.buildSessionFactory();
+    	/*Configuration configuration = new Configuration();
+        configuration.configure();
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
+                configuration.getProperties()).build();
+        return configuration.buildSessionFactory(serviceRegistry);
+        
+        return new AnnotationConfiguration().
+        configure().
+        //addPackage("com.xyz") //add package if used.
+        addAnnotatedClass(Employee.class).
+        buildSessionFactory()*/
+        
     	
     	
     }
